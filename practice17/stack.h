@@ -3,18 +3,8 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <math.h>
- 
-// 静态的栈
-//#define N 10
-//struct Stack
-//{
-//	int a[N];    定义了一个指定好大小的数组
-//	int size;
-//};
- 
- 
+
 // 动态栈
-// 栈可以选择链表也可以选择数组，为什么要选择动态数组呢
 // 因为数组的尾插和尾删效率比较高，而栈刚刚好，是先进后出，并且只能从一端进，一端出（栈顶）
 typedef int STDataType;   // 定义数据类型
 typedef struct Stack

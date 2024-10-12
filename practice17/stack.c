@@ -4,13 +4,12 @@
 // 初始化栈
 void STInit(ST* ps)
 {
-	assert(ps); // 这里一定要断言，如果是空指针的话，就无法找到整个数组 
+	assert(ps);
  
 	ps->a = NULL;
 	ps->capacity = 0;
 	// 这里需要注意的是当 top=0 时指向的是栈顶元素的下一个位置
-	//                   top=-1 时指向的是栈顶元素
-	// 这里也可以理解为顺序表中 size 有效数据的意思
+	//top = 0 ,栈没满
 	ps->top = 0;
 }
  
@@ -18,7 +17,7 @@ void STInit(ST* ps)
 void STDestory(ST* ps)
 {
 	assert(ps);
-	free(ps->a);
+	free(ps->a); //直接释放内存
 	ps->a = NULL;
 	ps->capacity = ps->top = 0;
 }
@@ -30,12 +29,12 @@ void STPush(ST* ps, STDataType x)
 	assert(ps);
  
 	// 扩容
-	// 判断是否需要扩容
 	if (ps->top == ps->capacity)
 	{
-		int newcapacity = ps->capacity == 0 ? 4 : ps->capacity * 2;
-		STDataType* temp = (STDataType*)realloc(ps->a, sizeof(STDataType) * newcapacity);
-		// 防止返回的是空指针
+		int newcapacity = ps->capacity == 0 ? 4 : ps->capacity * 2; //首次push创建容量为4大小的栈，之后每次扩容都在赏赐基础上乘二
+		STDataType* temp = (STDataType*)realloc(ps->a, sizeof(STDataType) * newcapacity); 
+		//此处使用realloc是因为每次扩容后的空间都不同，相当于实现了free(上次创建的指针)ps->a=NULL ---> malloc(本次扩容需要的大小)
+		//使用valgrind检查发现没有泄漏内存
 		if (temp == NULL)
 		{
 			perror("realloc fail!");
@@ -53,9 +52,7 @@ void STPush(ST* ps, STDataType x)
 void STPop(ST* ps)
 {
 	assert(ps);
-	// 只需要删除栈顶的数据即可
- 
-	// 需要判断栈内是否还有数据
+	// 只需要删除栈顶的数据即可 //似乎只对栈进行扩容，不进行出栈后动态调整栈的大小
 	assert(ps->top > 0);
 	ps->top--;
  
@@ -65,7 +62,6 @@ void STPop(ST* ps)
 int STSize(ST* ps)
 {
 	assert(ps);
- 
 	return ps->top;
 }
  

@@ -13,21 +13,25 @@ void Test1()
 	STInit(&ps);
 	// 将结构体变量的地址给给尾插函数
 	printf("********************测试队列*****************\n");
-	printf("\n");
 	printf("********************进行尾插*****************\n");
-	printf("\n");
 	printf("********************尾插1 2 3 4 5\n");
-	printf("\n");
 	STPush(&ps, 1);
 	STPush(&ps, 2);
 	STPush(&ps, 3);
 	STPush(&ps, 4);
 	STPush(&ps, 5);
+	STPush(&ps, 6);
+	STPush(&ps, 7);
+	STPush(&ps, 8);
+	STPush(&ps, 9);
+	STPush(&ps, 10);
+	STPush(&ps, 11);
+	STPush(&ps, 12);
+	STPush(&ps, 13);
+	STPush(&ps, 14);
 	printf("****输出（满足后进先出原则）\n");
-	printf("\n");
 	STPrint(&ps);
-	
- 
+
 	// 销毁（防止内存泄露）
 	STDestory(&ps);
 }

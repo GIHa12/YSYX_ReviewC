@@ -7,15 +7,19 @@
 #define MAX_DATA 512 //姓名和邮箱的最大字节数
 #define MAX_ROWS 100 //最大数据条数
 
-struct Address {
-    int id;
-    int set;
-    char name[MAX_DATA];
-    char email[MAX_DATA];
+struct Address { //1024+8 Byte+4 Byte
+    int id; // 4Byte
+    int set; // 4Byte
+    char name[MAX_DATA];//512Byte
+    char email[MAX_DATA];//512Byte
+    char test; //1Byte+[3Byte] = 4Byte
 };
 
 struct Database {
-    struct Address rows[MAX_ROWS];
+    struct Address rows[MAX_ROWS]; 
+    //100*1024Byte + 100*8Byte +100*4Byte  = 103200Byte+400Byte  = 100.78KB /101.17KB
+    //但是在磁盘中存储的时候根据块大小对其原理，通过du -ah --max-depth=1命令可以看到最小块大小为4K，
+    //因此即使此处计算出来的大小为100.78K也会扩充到104KB进行存储
 };
 
 struct Connection {
@@ -84,12 +88,13 @@ void Database_close(struct Connection *conn)
 
 void Database_write(struct Connection *conn)
 {
-    rewind(conn->file);
+    rewind(conn->file); //设置文件位置为给定流的文件的开头
 
     int rc = fwrite(conn->db, sizeof(struct Database), 1, conn->file);
+    printf("siezof Database is %ld Byte\n",sizeof(struct Database));
     if(rc != 1) die("Failed to write database.",conn);
 
-    rc = fflush(conn->file);
+    rc = fflush(conn->file); //刷新流的输出缓冲区
     if(rc == -1) die("Cannot flush database.",conn);
 }
 
