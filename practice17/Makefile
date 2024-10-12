@@ -7,7 +7,7 @@ ex17: ex17.c
 	$(CC) $(CFLAGS) ex17.c -o ex17
 
 test: test.c stack.c stack.h
-	$(CC) $(CFLAGS) stack.c test.c -o test
+    $(CC) $(CFLAGS) stack.c test.c -o test
 
 
 clean:
