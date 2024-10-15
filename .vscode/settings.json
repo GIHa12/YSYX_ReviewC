@@ -1,5 +1,13 @@
 {
     "files.associations": {
-        "dbg.h": "c"
+        "dbg.h": "c",
+        "assert.h": "c",
+        "type_traits": "c",
+        "list.h": "c",
+        "system_error": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
     }
 }

@@ -1,0 +1,13 @@
+DEBUG tests/list_tests.c:112: ----- RUNNING: ./tests/list_tests
+DEBUG tests/list_tests.c:102: 
+----- test_create
+DEBUG tests/list_tests.c:103: 
+----- test_push_pop
+DEBUG tests/list_tests.c:104: 
+----- test_unshift
+DEBUG tests/list_tests.c:105: 
+----- test_remove
+DEBUG tests/list_tests.c:106: 
+----- test_shift
+DEBUG tests/list_tests.c:107: 
+----- test_destroy
